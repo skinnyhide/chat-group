@@ -24,7 +24,7 @@ const InputTextSearch = ({ name, id, placeholder, value, onChange }) => {
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="form-input rounded-md bg-gray2 placeholder:text-font-gray text-font-white border-none w-auto focus:ring-0"
+        className="form-input rounded-md bg-gray2 placeholder:text-font-gray text-font-white border-none w-full focus:ring-0"
       />
     </form>
   );

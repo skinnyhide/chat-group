@@ -10,37 +10,44 @@ import {
 import Member from "./Member";
 import InputTextSearch from "./InputTextSearch";
 import Channel from "./Channel";
+import { useRecoilState } from "recoil";
+import { activeChannelState } from "../utils/recoil";
 
 const Navbar = () => {
   const navMobileRef = useRef(null);
   const navMobileAllChannelsRef = useRef(null);
   const [inputSearchChannel, setInputSearchChannel] = useState("");
+  const [activeChannel, setActiveChannel] = useRecoilState(activeChannelState);
 
+  // Open Nav Mobile
   const handleOpenNavMobile = () => {
     navMobileRef.current.classList.toggle("-translate-x-[100%]");
   };
 
+  // See All Channels List
   const handleOpenAllChannels = () => {
     navMobileRef.current.classList.toggle("-translate-x-[100%]");
     navMobileAllChannelsRef.current.classList.toggle("-translate-x-[100%]");
   };
 
-  const handleBackToChannel = () => {
+  // Go To The Channel Function
+  const handleGoToChannel = channel => {
     navMobileAllChannelsRef.current.classList.toggle("-translate-x-[100%]");
     navMobileRef.current.classList.toggle("-translate-x-[100%]");
+    setActiveChannel(channel);
   };
 
   return (
     <nav className="relative">
       {/* Navbar Header */}
-      <div className="w-screen h-[60px] bg-gray1 flex items-center fixed top-0 z-20 shadow-nav">
+      <div className="w-screen h-[60px] bg-gray1 flex items-center fixed top-0 md:left-[300px] z-20 shadow-nav">
         <Bars3Icon
           onClick={() => handleOpenNavMobile()}
           className="w-8 h-8 text-font-white ml-4 mr-6 cursor-pointer"
         />
 
         <h2 className="text-2xl text-font-white font-bold">
-          FRONT-END DEVELOPERS
+          {`FRONT-END ${activeChannel}`}
         </h2>
       </div>
 
@@ -70,7 +77,7 @@ const Navbar = () => {
         {/* Channerl Description */}
         <div className="w-full pl-10 pr-8">
           <h3 className="text-font-white font-bold text-xl mb-4">
-            FRONT-END DEVELOPERS
+            {`FRONT-END ${activeChannel}`}
           </h3>
 
           <p className="text-font-white text-base">
@@ -106,7 +113,6 @@ const Navbar = () => {
       </div>
 
       {/* Nav Mobile All Channels */}
-      {/*  */}
       <div
         ref={navMobileAllChannelsRef}
         className="absolute left-0 top-0 bottom-0 w-5/6 h-screen overflow-y-auto  py-20 bg-black2 z-30  transition -translate-x-[100%]"
@@ -121,14 +127,6 @@ const Navbar = () => {
           >
             <PlusSmallIcon className="w-7 h-7 text-font-white" />
           </div>
-        </div>
-
-        {/* Back To Channel */}
-        <div className="fixed top-3 right-4 w-9 h-9 flex justify-center items-center bg-black2 rounded-md cursor-pointer">
-          <ChevronRightIcon
-            onClick={handleBackToChannel}
-            className="w-7 h-7 text-font-white"
-          />
         </div>
 
         {/* Input Search Channel */}
@@ -147,8 +145,12 @@ const Navbar = () => {
         {/* Members Channel */}
         <div className="w-full pl-10 pr-8 mt-10 text-white">
           {/* Members */}
-          {[...Array(10).keys()].map((member, index) => (
-            <Channel key={index} />
+          {[...Array(10).keys()].map((channel, index) => (
+            <Channel
+              key={index}
+              onClick={() => handleGoToChannel(channel)}
+              channel={channel}
+            />
           ))}
         </div>
 
