@@ -11,10 +11,11 @@ import {
   PlusSmallIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
-import { activeChannelState } from "../utils/recoil";
+import { activeChannelState, isModalAddChannelState } from "../utils/recoil";
 import { useRecoilState } from "recoil";
 import Channel from "../components/Channel";
 import InputTextSearch from "../components/InputTextSearch";
+import ModalAddChannel from "../components/ModalAddChannel";
 // import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
 export default function Home() {
@@ -22,6 +23,9 @@ export default function Home() {
   const navDesktopChannelRef = useRef(null);
   const navDesktopAllChannelsRef = useRef(null);
   const [activeChannel, setActiveChannel] = useRecoilState(activeChannelState);
+  const [isModalAddChannel, setIsModalAddChannel] = useRecoilState(
+    isModalAddChannelState
+  );
   const [inputSearchChannel, setInputSearchChannel] = useState("");
 
   // Data Dummy
@@ -66,6 +70,11 @@ export default function Home() {
     setActiveChannel(channel);
   };
 
+  // Open Modal Add Channel
+  const handleOpenModalAddChannel = () => {
+    setIsModalAddChannel(true);
+  };
+
   return (
     <>
       <HeadComp title="Home" />
@@ -74,6 +83,9 @@ export default function Home() {
       <main className="bg-gray1 w-screen min-h-screen box-border md:flex relative">
         {/* Navbar */}
         <Navbar />
+
+        {/* Modal Add New Channel */}
+        <ModalAddChannel />
 
         {/* Nav Desktop Channel */}
         <div
@@ -138,7 +150,7 @@ export default function Home() {
             <h2 className="text-2xl text-font-white font-bold">Channel</h2>
 
             <div
-              onClick={() => alert("Fungsi Tambah Channel Nanti")}
+              onClick={handleOpenModalAddChannel}
               className="bg-gray1 w-9 h-9 rounded-md cursor-pointer flex justify-center items-center"
             >
               <PlusSmallIcon className="w-7 h-7 text-font-white" />

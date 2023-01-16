@@ -11,13 +11,16 @@ import Member from "./Member";
 import InputTextSearch from "./InputTextSearch";
 import Channel from "./Channel";
 import { useRecoilState } from "recoil";
-import { activeChannelState } from "../utils/recoil";
+import { activeChannelState, isModalAddChannelState } from "../utils/recoil";
 
 const Navbar = () => {
   const navMobileRef = useRef(null);
   const navMobileAllChannelsRef = useRef(null);
   const [inputSearchChannel, setInputSearchChannel] = useState("");
   const [activeChannel, setActiveChannel] = useRecoilState(activeChannelState);
+  const [isModalAddChannel, setIsModalAddChannel] = useRecoilState(
+    isModalAddChannelState
+  );
 
   // Open Nav Mobile
   const handleOpenNavMobile = () => {
@@ -37,6 +40,11 @@ const Navbar = () => {
     setActiveChannel(channel);
   };
 
+  // Open Modal Add Channel
+  const handleOpenModalAddChannel = () => {
+    setIsModalAddChannel(true);
+  };
+
   return (
     <nav className="relative">
       {/* Navbar Header */}
@@ -54,7 +62,7 @@ const Navbar = () => {
       {/* Nav Mobile Channel */}
       <div
         ref={navMobileRef}
-        className="absolute left-0 top-0 bottom-0 w-5/6 h-screen overflow-y-auto  py-20 bg-black2 z-30  transition -translate-x-[100%]"
+        className="fixed md:hidden left-0 top-0 bottom-0 w-5/6 h-screen overflow-y-auto  py-20 bg-black2 z-30  transition -translate-x-[100%]"
       >
         {/* Header */}
         <div className="w-5/6 h-[60px] bg-black2 flex items-center fixed top-0 shadow-nav">
@@ -115,14 +123,14 @@ const Navbar = () => {
       {/* Nav Mobile All Channels */}
       <div
         ref={navMobileAllChannelsRef}
-        className="absolute left-0 top-0 bottom-0 w-5/6 h-screen overflow-y-auto  py-20 bg-black2 z-30  transition -translate-x-[100%]"
+        className={`fixed md:hidden left-0 top-0 bottom-0 w-5/6 h-screen overflow-y-auto  py-20 bg-black2 z-30  transition -translate-x-[100%]`}
       >
         {/* Header */}
         <div className="w-5/6 h-[60px] pl-10 pr-8 bg-black2 flex justify-between items-center fixed top-0 shadow-nav">
           <h2 className="text-2xl text-font-white font-bold">Channel</h2>
 
           <div
-            onClick={() => alert("Fungsi Tambah Channel Nanti")}
+            onClick={handleOpenModalAddChannel}
             className="bg-gray1 w-9 h-9 rounded-md cursor-pointer flex justify-center items-center"
           >
             <PlusSmallIcon className="w-7 h-7 text-font-white" />

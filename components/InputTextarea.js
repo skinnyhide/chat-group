@@ -1,9 +1,9 @@
 import React from "react";
 
-const InputText = ({ name, id, placeholder, value, onChange }) => {
+const InputTextarea = ({ name, id, placeholder, value, onChange }) => {
   return (
     <div className="w-full">
-      <input
+      <textarea
         type="text"
         name={name}
         id={id}
@@ -11,10 +11,10 @@ const InputText = ({ name, id, placeholder, value, onChange }) => {
         onChange={onChange}
         placeholder={placeholder}
         required
-        className="form-input rounded-md bg-gray2 placeholder:text-font-gray text-font-white border-none w-full focus:ring-0"
+        className="form-input rounded-md bg-gray2 placeholder:text-font-gray text-font-white border-none w-full h-28 focus:ring-0"
       />
     </div>
   );
 };
 
-export default InputText;
+export default InputTextarea;
