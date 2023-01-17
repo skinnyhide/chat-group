@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
-const InputPassword = ({ name, id, placeholder }) => {
+const InputPassword = ({ name, id, placeholder, value, onChange }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleEyes = () => {
@@ -16,6 +16,8 @@ const InputPassword = ({ name, id, placeholder }) => {
         id={id}
         placeholder={placeholder}
         required
+        value={value}
+        onChange={onChange}
         className="form-input rounded-md bg-gray2 placeholder:text-font-gray text-font-white border-none w-[85%] focus:ring-0"
       />
 

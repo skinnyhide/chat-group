@@ -81,8 +81,8 @@ export default function Home() {
     <>
       <HeadComp title="Home" />
 
-      {/* Main WEb */}
-      <main className="bg-gray1 w-screen min-h-screen box-border md:flex md:relative">
+      {/* Main Web */}
+      <main className="bg-gray1 w-screen min-h-screen box-border md:relative">
         {/* Navbar */}
         <Navbar />
 

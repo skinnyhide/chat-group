@@ -3,13 +3,22 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/24/solid";
 import React, { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { isModalProfileMenuState } from "../utils/recoil";
+import Link from "next/link";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  isModalAddChannelState,
+  isModalProfileMenuState,
+  isNavAllChannelOpenState,
+  isNavChannelOpenState,
+} from "../utils/recoil";
 
 const ModalProfileMenu = () => {
   const [isModalProfileMenu, setIsModalProfileMenu] = useRecoilState(
     isModalProfileMenuState
   );
+  const setIsNavChannelOpen = useSetRecoilState(isNavChannelOpenState);
+  const setIsNavAllChannelOpen = useSetRecoilState(isNavAllChannelOpenState);
+  const setIsModalAddChannel = useSetRecoilState(isModalAddChannelState);
 
   useEffect(() => {
     document.addEventListener("click", e => {
@@ -23,6 +32,14 @@ const ModalProfileMenu = () => {
     });
   }, []);
 
+  // Close All Modal / Section In Home Page
+  const handleCloseAllModalAndNav = () => {
+    setIsModalProfileMenu(false);
+    setIsNavChannelOpen(false);
+    setIsNavAllChannelOpen(false);
+    setIsModalAddChannel(false);
+  };
+
   return (
     <div
       className={`w-48 px-4 absolute -top-28 right-6 bg-gray1 text-font-white rounded-xl ${
@@ -30,13 +47,15 @@ const ModalProfileMenu = () => {
       } flex-col justify-around profile-menu`}
     >
       {/* Profile Link Menu */}
-      <div
-        onClick={() => alert("My Profile")}
-        className="rounded-md flex items-center pl-2 py-[6px] my-3 hover:bg-gray2 transition cursor-pointer profile-menu"
-      >
-        <UserCircleIcon className="w-7 h-7 mr-4 profile-menu" />
-        <span className="text-base profile-menu">My Profile</span>
-      </div>
+      <Link href={`/profile/Shaunna Firth`}>
+        <div
+          onClick={handleCloseAllModalAndNav}
+          className="rounded-md flex items-center pl-2 py-[6px] my-3 hover:bg-gray2 transition cursor-pointer profile-menu"
+        >
+          <UserCircleIcon className="w-7 h-7 mr-4 profile-menu" />
+          <span className="text-base profile-menu">My Profile</span>
+        </div>
+      </Link>
 
       {/* Line */}
       <div className="w-full h-[1px] bg-gray-600 profile-menu" />
