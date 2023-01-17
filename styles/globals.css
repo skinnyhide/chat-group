@@ -12,3 +12,10 @@
   transform: translate(-50%, -50%);
   box-shadow: 0 0 15px 1px rgba(255, 255, 255, 0.5);
 }
+
+.ddd {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
